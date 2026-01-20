@@ -1,4 +1,4 @@
-name: CI - Build Test & Push Docker Image
+name: CI - Build Test & Push Docker Image & Deploy EC2
 
 on:
   push:
@@ -18,7 +18,6 @@ jobs:
           distribution: temurin
           java-version: 21
 
-      # Cho phép chạy gradlew
       - name: Grant execute permission for gradlew
         run: chmod +x ./gradlew
 
@@ -38,3 +37,41 @@ jobs:
         run: |
           docker build -t ${{ secrets.DOCKERHUB_USERNAME }}/springboot-app:latest .
           docker push ${{ secrets.DOCKERHUB_USERNAME }}/springboot-app:latest
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Deploy to EC2 via SSH
+        uses: appleboy/ssh-action@v1.0.0
+        with:
+          host: ${{ secrets.EC2_HOST }}
+          username: ${{ secrets.EC2_USER }}
+          key: ${{ secrets.EC2_SSH_KEY }}
+          script: |
+            echo "== Check & install Docker =="
+            if ! command -v docker &> /dev/null
+            then
+              echo "Docker not found, installing..."
+              sudo apt-get update -y
+              sudo apt-get install -y docker.io
+              sudo systemctl start docker
+              sudo systemctl enable docker
+              sudo usermod -aG docker $USER
+            else
+              echo "Docker already installed"
+            fi
+
+            echo "== Pull new image =="
+            docker pull ${{ secrets.DOCKERHUB_USERNAME }}/springboot-app:latest
+
+            echo "== Stop old container if exists =="
+            docker stop springboot-app || true
+            docker rm springboot-app || true
+
+            echo "== Run new container =="
+            docker run -d \
+              --name springboot-app \
+              -p 8080:8080 \
+              ${{ secrets.DOCKERHUB_USERNAME }}/springboot-app:latest
