@@ -2,10 +2,12 @@ package com.example.demo.service;
 
 import com.example.demo.model.User;
 import com.example.demo.repository.InMemoryUserRepository;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
 
+@Service
 public class UserService {
 
     private final InMemoryUserRepository repository;
@@ -56,4 +58,3 @@ public class UserService {
         repository.deleteById(id);
     }
 }
-
