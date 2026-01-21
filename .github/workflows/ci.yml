@@ -69,24 +69,24 @@ jobs:
             fi
 
             echo "== Verify Docker =="
-            docker --version
+            sudo docker --version
 
             IMAGE="${{ secrets.DOCKERHUB_USERNAME }}/springboot-app:latest"
             CONTAINER_NAME="springboot-app"
 
             echo "== Pull new image =="
-            docker pull $IMAGE
+            sudo docker pull $IMAGE
 
             echo "== Stop & remove old container if exists =="
-            docker stop $CONTAINER_NAME || true
-            docker rm $CONTAINER_NAME || true
+            sudo docker stop $CONTAINER_NAME || true
+            sudo docker rm $CONTAINER_NAME || true
 
             echo "== Run new container =="
-            docker run -d \
+            sudo docker run -d \
               --name $CONTAINER_NAME \
               --restart unless-stopped \
               -p 8080:8080 \
               $IMAGE
 
             echo "== Show running containers =="
-            docker ps
+            sudo docker ps
