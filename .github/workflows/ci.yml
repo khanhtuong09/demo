@@ -1,11 +1,63 @@
-name: CI - Build Test & Push Docker Image & Deploy EC2
+name: CI - Test, Quality Gate, Build, Push & Deploy
 
 on:
+  pull_request:
+    branches: ["main"]
+
   push:
     branches: ["main"]
 
 jobs:
+  # =========================
+  # 1) CI for PRs and main
+  # =========================
+  ci:
+    name: CI - Test, Style, Sonar
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout source
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0   # 🔥 rất quan trọng cho Sonar PR & blame
+
+      - name: Set up JDK 21
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: 21
+
+      - name: Grant execute permission for gradlew
+        run: chmod +x ./gradlew
+
+      - name: Run tests
+        run: ./gradlew test
+
+      - name: Checkstyle
+        run: ./gradlew checkstyleMain checkstyleTest
+
+      # ===== SonarCloud Scan =====
+      - name: SonarCloud Scan
+        env:
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+          SONAR_PROJECT_KEY: ${{ secrets.SONAR_PROJECT_KEY }}
+          SONAR_ORG: ${{ secrets.SONAR_ORG }}
+        run: |
+          ./gradlew sonarqube \
+            -Dsonar.projectKey=$SONAR_PROJECT_KEY \
+            -Dsonar.organization=$SONAR_ORG \
+            -Dsonar.host.url=https://sonarcloud.io \
+            -Dsonar.login=$SONAR_TOKEN
+
+
+  # =========================
+  # 2) Build & Push Docker
+  #    (chỉ khi push main)
+  # =========================
   build:
+    name: Build & Push Docker Image
+    needs: ci
+    if: github.event_name == 'push'
     runs-on: ubuntu-latest
 
     steps:
@@ -21,9 +73,6 @@ jobs:
       - name: Grant execute permission for gradlew
         run: chmod +x ./gradlew
 
-      - name: Run tests
-        run: ./gradlew test
-
       - name: Build jar
         run: ./gradlew build -x test
 
@@ -35,12 +84,19 @@ jobs:
 
       - name: Build & Push Docker image
         run: |
-          docker build -t ${{ secrets.DOCKERHUB_USERNAME }}/springboot-app:latest .
-          docker push ${{ secrets.DOCKERHUB_USERNAME }}/springboot-app:latest
+          IMAGE=${{ secrets.DOCKERHUB_USERNAME }}/springboot-app:latest
+          docker build -t $IMAGE .
+          docker push $IMAGE
 
 
+  # =========================
+  # 3) Deploy to EC2
+  #    (chỉ khi push main)
+  # =========================
   deploy:
+    name: Deploy to EC2
     needs: build
+    if: github.event_name == 'push'
     runs-on: ubuntu-latest
 
     steps:
