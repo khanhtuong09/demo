@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<checkstyle version="10.12.3">
+<file name="/Users/tuongkhanh/Desktop/demo/src/main/java/com/example/demo/repository/InMemoryUserRepository.java">
+</file>
+<file name="/Users/tuongkhanh/Desktop/demo/src/main/java/com/example/demo/controller/HelloController.java">
+</file>
+<file name="/Users/tuongkhanh/Desktop/demo/src/main/java/com/example/demo/controller/UserController.java">
+<error line="7" column="47" severity="error" message="Using the &apos;.*&apos; form of import should be avoided - org.springframework.web.bind.annotation.*." source="com.puppycrawl.tools.checkstyle.checks.imports.AvoidStarImportCheck"/>
+</file>
+<file name="/Users/tuongkhanh/Desktop/demo/src/main/java/com/example/demo/model/User.java">
+</file>
+<file name="/Users/tuongkhanh/Desktop/demo/src/main/java/com/example/demo/service/UserService.java">
+</file>
+<file name="/Users/tuongkhanh/Desktop/demo/src/main/java/com/example/demo/service/MathService.java">
+</file>
+<file name="/Users/tuongkhanh/Desktop/demo/src/main/java/com/example/demo/service/StringService.java">
+</file>
+<file name="/Users/tuongkhanh/Desktop/demo/src/main/java/com/example/demo/service/CollectionService.java">
+</file>
+<file name="/Users/tuongkhanh/Desktop/demo/src/main/java/com/example/demo/service/GreetingService.java">
+</file>
+<file name="/Users/tuongkhanh/Desktop/demo/src/main/java/com/example/demo/service/DateService.java">
+</file>
+<file name="/Users/tuongkhanh/Desktop/demo/src/main/java/com/example/demo/DemoApplication.java">
+</file>
+</checkstyle>

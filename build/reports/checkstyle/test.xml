@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<checkstyle version="10.12.3">
+<file name="/Users/tuongkhanh/Desktop/demo/src/test/java/com/example/demo/repository/InMemoryUserRepositoryTest.java">
+<error line="7" column="8" severity="error" message="Unused import - java.util.HashSet." source="com.puppycrawl.tools.checkstyle.checks.imports.UnusedImportsCheck"/>
+<error line="10" column="28" severity="error" message="Using the &apos;.*&apos; form of import should be avoided - java.util.concurrent.*." source="com.puppycrawl.tools.checkstyle.checks.imports.AvoidStarImportCheck"/>
+<error line="12" column="47" severity="error" message="Using the &apos;.*&apos; form of import should be avoided - org.junit.jupiter.api.Assertions.*." source="com.puppycrawl.tools.checkstyle.checks.imports.AvoidStarImportCheck"/>
+</file>
+<file name="/Users/tuongkhanh/Desktop/demo/src/test/java/com/example/demo/DemoApplicationTests.java">
+<error line="3" column="8" severity="error" message="Unused import - org.junit.jupiter.api.Test." source="com.puppycrawl.tools.checkstyle.checks.imports.UnusedImportsCheck"/>
+</file>
+<file name="/Users/tuongkhanh/Desktop/demo/src/test/java/com/example/demo/controller/HelloControllerTest.java">
+</file>
+<file name="/Users/tuongkhanh/Desktop/demo/src/test/java/com/example/demo/service/StringServiceTest.java">
+<error line="5" column="47" severity="error" message="Using the &apos;.*&apos; form of import should be avoided - org.junit.jupiter.api.Assertions.*." source="com.puppycrawl.tools.checkstyle.checks.imports.AvoidStarImportCheck"/>
+</file>
+<file name="/Users/tuongkhanh/Desktop/demo/src/test/java/com/example/demo/service/MathServiceTest.java">
+<error line="5" column="47" severity="error" message="Using the &apos;.*&apos; form of import should be avoided - org.junit.jupiter.api.Assertions.*." source="com.puppycrawl.tools.checkstyle.checks.imports.AvoidStarImportCheck"/>
+</file>
+<file name="/Users/tuongkhanh/Desktop/demo/src/test/java/com/example/demo/service/DateServiceTest.java">
+<error line="7" column="47" severity="error" message="Using the &apos;.*&apos; form of import should be avoided - org.junit.jupiter.api.Assertions.*." source="com.puppycrawl.tools.checkstyle.checks.imports.AvoidStarImportCheck"/>
+</file>
+<file name="/Users/tuongkhanh/Desktop/demo/src/test/java/com/example/demo/service/CollectionServiceTest.java">
+<error line="8" column="47" severity="error" message="Using the &apos;.*&apos; form of import should be avoided - org.junit.jupiter.api.Assertions.*." source="com.puppycrawl.tools.checkstyle.checks.imports.AvoidStarImportCheck"/>
+</file>
+<file name="/Users/tuongkhanh/Desktop/demo/src/test/java/com/example/demo/service/UserServiceTest.java">
+<error line="11" column="47" severity="error" message="Using the &apos;.*&apos; form of import should be avoided - org.junit.jupiter.api.Assertions.*." source="com.puppycrawl.tools.checkstyle.checks.imports.AvoidStarImportCheck"/>
+</file>
+<file name="/Users/tuongkhanh/Desktop/demo/src/test/java/com/example/demo/service/GreetingServiceTest.java">
+</file>
+</checkstyle>
