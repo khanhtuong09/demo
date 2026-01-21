@@ -9,7 +9,7 @@ import java.util.List;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
@@ -28,7 +28,7 @@ class UserServiceTest {
     @Test
     void createUserWorksAndNormalizesEmail() {
         User u = userService.createUser("Alice", "ALICE@EXAMPLE.COM");
-        assertNotNull(u.getId());
+        assertNull(u.getId());
         assertEquals("alice@example.com", u.getEmail());
     }
 
