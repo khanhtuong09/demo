@@ -8,5 +8,9 @@ public class GreetingService {
     public String greet() {
         return "Hello World change";
     }
+
+    public String hello() {
+        return "Hello";
+    }
 }
 
