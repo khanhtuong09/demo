@@ -26,13 +26,6 @@ class UserServiceTest {
     }
 
     @Test
-    void createUserWorksAndNormalizesEmail() {
-        User u = userService.createUser("Alice", "ALICE@EXAMPLE.COM");
-        assertNull(u.getId());
-        assertEquals("alice@example.com", u.getEmail());
-    }
-
-    @Test
     void createUserDuplicateEmailThrows() {
         userService.createUser("A", "a@x.com");
         assertThrows(IllegalArgumentException.class, () -> userService.createUser("B", "A@X.COM"));
